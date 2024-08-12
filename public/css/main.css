@@ -1,0 +1,279 @@
+ /* This file is reserved for overriding and extending the template styles. */
+ /* @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap"); */
+
+ /*@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Montserrat:wght@100;600;700&display=swap');*/
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+@media (max-width: 575px) {
+    .carousel-item img {
+        height: 270px !important;
+    }
+}
+
+ @media (min-width: 576px) and (max-width: 767px) {
+     .carousel-item img {
+         height: 320px !important;
+     }
+ }
+
+ @media (min-width: 768px) and (max-width: 991px) {
+     .carousel-item img {
+         height: 420px !important;
+     }
+ }
+
+ @media (min-width: 992px) and (max-width: 1199px) {
+     .carousel-item img {
+         height: 520px !important;
+     }
+ }
+
+ @media (min-width: 1200px) and (max-width: 1399px) {
+     .carousel-item img {
+         height: 620px !important;
+     }
+ }
+
+ @media (min-width: 1400px) {
+     .carousel-item img {
+         height: 720px !important;
+         background-size: cover;
+     }
+ }
+
+
+ p,
+ a,
+ label,
+ button,
+ td, h1, h2, h3, h4, h5,h6
+    {
+     font-family: "League Spartan", Sans-serif !important;
+     /*font-family: "Lexend", Sans-serif !important;*/
+ }
+
+ /*h1, h2, h3, h4, h5,h6 {
+     font-family: "Playfair Display", serif !important;
+ }*/
+
+ .fs-7 {
+     font-size: .8rem !important;
+ }
+
+ .top-10 {
+     top: 10% !important;
+ }
+
+ .start-90 {
+     left: 90% !important;
+ }
+
+ .start-10 {
+     left: 10% !important;
+ }
+
+ .bottom-10 {
+     bottom: 10% !important;
+ }
+
+ .fondofooter {
+     background: #001A33;
+ }
+
+ .card:hover .card-footer {
+     /* background: rgba(0, 0, 0, 0.6); */
+     color: #ffc107;
+ }
+
+ /* .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.361);
+    display: flex;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modalshow {
+    opacity: 1 !important;
+    pointer-events: unset !important;
+}
+
+.modal_container {
+    width: 90%;
+    background-color: #fff;
+    margin: auto;
+    max-width: 100%;
+    max-height: 82%;
+
+} */
+
+ #mapa {
+     height: 450px;
+     width: auto;
+ }
+
+ .tituloseccionprecio {
+     font-family: "Nunito Sans", Sans-serif;
+     font-weight: 600;
+     font-size: 30px;
+     text-align: right;
+
+ }
+
+ /*.share_list {
+     width: 30px;
+     height: 30px;
+     margin-left: 10px;
+     float: right;
+     cursor: pointer;
+     background-repeat: no-repeat;
+     background-image: url(css/css-images/unitshare.png);
+     background-position: 7px 8px;
+     border: 1px solid #eef3f6;
+     border-radius: 2px;
+ }
+
+ .share_list:hover {
+     color: white;
+     background-color: #8e8f91;
+ }
+
+ .share_list i {
+     margin: 25% 25%;
+     color: #002547;
+
+ }
+
+ .share_list:hover i {
+     color: white;
+ }*/
+
+ .banner {
+     /*position: relative;*/
+     width: 100%;
+     min-height: 50vh;
+     background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../img/banner-propertie2.png);
+     background-position: center center;
+     background-repeat: no-repeat;
+     background-size: cover;
+     /*border-bottom: 15px !important;*/
+ }
+ .banner-posts {
+     /*position: relative;*/
+     width: 100%;
+     height: 60vh!important;
+     min-height: 50vh!important;
+     background-position: center center;
+     background-repeat: no-repeat;
+     background-size: cover!important;
+     /*border-bottom: 15px !important;*/
+ }
+
+ .bg-section-one {
+
+     background-image: /*linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),*/ url(../img/agent-inmobilia2.jpg);
+     background-position: center center;
+     background-repeat: no-repeat;
+     background-size: cover;
+     /*background-attachment: fixed;*/
+     color: white;
+
+ }
+
+ .capacontacto {
+     height: 100%;
+     width: 100%;
+     position: relative;
+     padding-bottom: 3rem;
+     background: rgba(255, 255, 255, 0.934);
+ }
+
+ .nav-pills .nav-link.active,
+ .nav-pills .show>.nav-link {
+     background-color: rgb(255, 255, 255) !important;
+     color: black;
+ }
+
+
+ .btn-slide {
+     position: absolute;
+     top: 0;
+     left: 0;
+     opacity: 1;
+     transition: opacity 0.3s ease;
+     background-color: rgba(255, 255, 255, 0.2);
+
+ }
+
+ .icon-slide {
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     opacity: 0;
+     transition: opacity 0.3s ease;
+     font-size: 2em;
+ }
+
+ .btn-slide:hover .img-slide {
+     opacity: 0.4;
+ }
+
+ .btn-slide:hover .icon-slide {
+     opacity: 1;
+ }
+
+ .z-1 {
+     z-index: 1 !important;
+ }
+
+ .z-4 {
+     z-index: 4 !important;
+ }
+
+ .img-fluid {
+    max-width: 100%!important;
+    height: 380px!important;
+    width: 100%!important;
+    object-fit: cover!important;
+  }
+
+  .carousel-caption {
+    display: flex!important;
+    flex-direction: column!important;
+    justify-content: center!important;
+    align-items: center!important;
+    height: 100%!important; /* importante para que tome el alto del padre */
+  }
+  
+  .modal-cursor {
+    cursor: pointer;
+  }
+
+  .carousel-control-prev .spandiv{
+    height: 32px!important;
+    width: 32px!important;
+  }
+
+   .carousel-control-prev:hover .spandiv{
+    height: 32px!important;
+    width: 32px!important;
+	color: white!important;
+    background: rgb(0,0,0); background: linear-gradient(0deg, rgba(0,0,0,0.3841911764705882) 37%, rgba(0,0,0,0.3841911764705882) 100%);
+}
+  .carousel-control-next .spandiv{
+    height: 32px!important;
+    width: 32px!important;
+  }
+
+   .carousel-control-next:hover .spandiv{
+    height: 32px!important;
+    width: 32px!important;
+	color: white!important;
+    background: rgb(0,0,0); background: linear-gradient(0deg, rgba(0,0,0,0.3841911764705882) 37%, rgba(0,0,0,0.3841911764705882) 100%);
+}

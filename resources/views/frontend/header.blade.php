@@ -23,7 +23,7 @@
 
 </head>
 
-<body class="stext-bg-light">
+<body >
   <style>
     .list-header {
 
@@ -74,7 +74,7 @@
 
   </div> -->
 
-  <nav class="navbar navbar-expand-lg bg-white py-0 sticky-top" data-bs-theme="dark" style="z-index: 2;">
+  <nav class="navbar navbar-expand-lg bg-white py-0 sticky-top" data-bs-theme="white" style="z-index: 2;">
     <div class="container-fluid px-5">
 
       <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,7 +85,7 @@
         <a class="btn" href="{{ route('home') }}">
           <img src="{{ asset('image/' . $setting->logo_empresa) }}" alt="{{$setting->name}}" class="logo" width="auto" height="55px" />
         </a>
-        <ul class="navbar-nav mx-auto mt-2 pb-2 mb-lg-0">
+        <ul class="navbar-nav ms-auto mt-2 pb-2 mb-lg-0">
           <li class="nav-item ">
             <a class="nav-link" href="{{ route('home') }}">
               {{ __('message.Home')}}
@@ -124,36 +124,24 @@
             </a>
           </li>
           <li class="nav-item">
-          <a href="{{ route('propiedad.anunciar') }}" class="nav-link">{{ __('message.Publish')}}</a>
+            <a href="{{ route('propiedad.anunciar') }}" class="nav-link">{{ __('message.Publish')}}</a>
           </li>
-        </ul>
-
-        <ul class="navbar-nav  mt-2 pb-2 mb-lg-0">
-
           <li class="nav-item">
             @if(auth()->check())
             <!-- Mostrar ciertas cosas si el usuario está logueado -->
             <a href="{{route('Dashboard')}}" class="btn btn-outline-secondary border-0">{{ __('message.Dashboard')}}</a>
             @else
             <!-- Mostrar otras cosas si el usuario no está logueado -->
-            <a href="{{route('login')}}" class="btn btn-outline-secondary border-0"><i class="bi bi-person-fill me-2"></i>{{ __('message.Login')}}</a>
+            <a href="{{route('login')}}" class="btn btn-outline-secondary border-0"><i class="bi bi-person-fill"></i></a>
             @endif
           </li>
           <li class="nav-item">
-            <a class="btn btn-outline-secondary border-0" data-bs-toggle="offcanvas" href="#offcanvasSetting" role="button" aria-controls="offcanvasSetting"><i class="bi bi-globe me-2"></i>{{ __('message.Language')}}</a>
+            <a class="btn btn-outline-secondary border-0" data-bs-toggle="offcanvas" href="#offcanvasSetting" role="button" aria-controls="offcanvasSetting"><i class="bi bi-globe"></i></a>
           </li>
         </ul>
 
 
-        {{--<a href="{{ route('propiedad.anunciar') }}" class="btn btn-outline-primary">{{ __('message.Publish')}}</a>--}}
-        {{--@if(auth()->check())
-        <!-- Mostrar ciertas cosas si el usuario está logueado -->
-        <a href="{{route('Dashboard')}}" class="btn btn-outline-secondary border-0">{{ __('message.Dashboard')}}</a>
-        @else
-        <!-- Mostrar otras cosas si el usuario no está logueado -->
-        <a href="{{route('login')}}" class="btn btn-outline-secondary border-0"><i class="bi bi-person-fill me-2"></i>{{ __('message.Login')}}</a>
-        @endif
-        <a class="btn btn-outline-secondary border-0" data-bs-toggle="offcanvas" href="#offcanvasSetting" role="button" aria-controls="offcanvasSetting"><i class="bi bi-globe me-2"></i>{{ __('message.Language')}}</a>--}}
+
       </div>
     </div>
   </nav>

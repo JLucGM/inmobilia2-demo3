@@ -11,9 +11,7 @@ $description= $title
 <div class="container-fluid p-0">
   <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner ">
-      <div class="col-12 bg-dark position-absolute z-1" style="--bs-bg-opacity: .5;">
-        @include('frontend.components.formSearch')
-      </div>
+      
       @foreach($slides as $slide)
       <div class="carousel-item {{ $loop->first? 'active' : '' }} ">
         @php
@@ -30,7 +28,7 @@ $description= $title
         </video>
         @endif
 
-        <div class="carousel-caption carousel-captions ">
+        <div class="carousel-caption ">
           <div class="p-4 rounded" style="background: rgb(0,0,0); background: linear-gradient(0deg, rgba(0,0,0,0.3841911764705882) 37%, rgba(0,0,0,0.19091386554621848) 100%);">
             <h5>{{ $slide->title }}</h5>
             <p>{{ $slide->texto }}</p>
@@ -59,62 +57,29 @@ $description= $title
 </div>
 @endif
 
-@if(count($productsDestacados) > 0)
-<!-- PROPIEDADES DESTACADAS -->
-<div class="container my-4">
+<div class="container ">
   <div class="row">
-    <div class="col-12 text-start pb-4">
-      <h4 class="text-capitalize fw-bold">{{__('message.Featured properties')}}</h4>
-    </div>
-  </div>
 
-  <div class="row">
-    @foreach ($productsDestacados as $product )
-    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
-      <a href="{{route('producto.show', [$product->id])}}" class="card {{ $product->destacado == 1 ? 'shadow-lg' : '' }} text-decoration-none p-0 shadow-sml border rounded- my-1 position-relative">
-        <div class="card text-bg-dark h-100">
-          <img src="{{ asset('img/product/product_id_' . $product->id . '/' . $product->portada) }}" class="card-img img-fluid h-100" alt="...">
-          <div class="card-img-overlay">
-            <div class="h-50">
-              <h5 class="card-title ">{{ substr($product->name, 0, 45) }}{{ strlen($product->name) > 45? '...' : '' }}</h5>
-              <p class="card-text fw-semibold mb-0 fs-7">{{ __('message.' . strtolower($product->tipopropiedad->nombre)) }}</p>
-              <p class="card-text fw-semibold mb-0 fs-7">{{ __('message.' . strtolower($product->typeBusiness->name)) }}</p>
-            </div>
-            <p class="card-text pt-3"> {{ substr($product->direccion, 0, 80) }}{{ strlen($product->direccion) > 80? '...' : '' }} </p>
-            <p class="card-text">
-              @if ($product->publicarPrecio == 1)
-              {{ $setting->monedaSetting->denominacion.' '.number_format($product->price,2,".",".")}}
-              @else
-            <p class="mb-0 card-text fw-bold text-capitalize">{{__('message.Request price')}}</p>
-            @endif
-            </p>
-          </div>
-        </div>
+    @foreach($typeBusinesses as $typeBusiness)
+    <?php $image_url = asset('image/' . strtolower($typeBusiness->name) . '.png'); ?>
+
+    <div class="col-12 col-lg-6">
+
+      <a class="btn rounded-4 w-100 d-flex justify-content-center align-items-center my-4" href="{{ route('propiedad.lista', $typeBusiness->id) }} " style="background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('{{$image_url}}'); background-position: center center;
+     background-repeat: no-repeat;
+     background-size: cover; height:300px;">
+
+        <p class="text-white fs-3 fw-bold">
+
+          {{ __('message.' . strtolower($typeBusiness->name)) }}
+        </p>
+
       </a>
     </div>
+
     @endforeach
   </div>
 </div>
-@endif
-
-@if(count($products) > 0)
-<!-- PROPIEDADES RECIENTES -->
-<div class="container my-4">
-  <div class="row">
-    <div class="col-12 text-start pb-4">
-      <h4 class="text-capitalize fw-bold">{{__('message.Recent properties')}}</h4>
-    </div>
-  </div>
-
-  <div class="row">
-    @foreach ($products as $product)
-    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
-      @include('frontend.components.productsComponent')
-    </div>
-    @endforeach
-  </div>
-</div>
-@endif
 
 <div class="container">
   <!-- EQUIPO DE TRABAJO -->
@@ -124,38 +89,19 @@ $description= $title
     <div class="row">
       <div class="col-12 text-center px-5">
         <h3 class="text-capitalize fw-bold">{{__('message.Our Agents')}}</h3>
-        <p class="my-4">
-          Estas son las últimas propiedades en la categoría Ventas. Puede
-          crear la lista utilizando el "último código abreviado de listado" y
-          mostrar elementos por categorías específicas.
-        </p>
+
       </div>
     </div>
 
     <div class="row">
       @foreach($vendedorAgente as $agente)
       <div class="col-lg-4 col-xl-3 col-md-6 col-sm-12">
-        <div class="card border-0 shadow-sm position-relative">
+        <div class="card border-0 card-agent shadow-sm">
 
-          <img class="rounded img-fluid" alt="profile" src="{{asset('img/profile/'.$agente->avatar)}}" />
+          <img class="rounded-4 img-fluid card-img" alt="profile" src="{{asset('img/profile/'.$agente->avatar)}}" />
 
-          <div class="card-content py-2">
-            <h4 class="text-center">{{ $agente->name.' '.$agente->last_name}}</h4>
-            <h6 class="text-center">{{-- $agente->getRoleNames()[0] --}}</h6>
-            <table class="table table-borderless mx-2">
-              <tbody>
-                <tr>
-                  <th class="d-flex align-items-center"><i class="fa-solid fa-at me-2"></i>
-                    <p class="m-0">{{ $agente->email }}</p>
-                  </th>
-                </tr>
-                <tr>
-                  <th class="d-flex"><i class="fa-solid fa-phone me-2"></i>
-                    <p class="m-0">{{ $agente->whatsapp }}</p>
-                  </th>
-                </tr>
-              </tbody>
-            </table>
+          <div class="card-img-overlay d-flex align-items-end " style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.5)); background-size: 100%; background-position: 0% 100%;">
+            <h4 class="text-center text-white d-flex align-items-end">{{ $agente->name.' '.$agente->last_name}}</h4>
           </div>
         </div>
       </div>
@@ -182,55 +128,53 @@ $description= $title
     </div>
   </div>
   @endif
+</div>
 
-  @if($setting->status_section_three == 1)
-  @if(count($testimonios) > 0)
-  <div class="container my-4">
-    <div class="row pb-4">
-      <div class="col-12 text-center">
-        <h3 class="text-capitalize fw-bold">{{__('message.Our Testimonials')}}</h3>
-      </div>
+@if($setting->status_section_three == 1)
+@if(count($testimonios) > 0)
+<div class="container my-4">
+  <div class="row pb-4">
+    <div class="col-12 text-center">
+      <h3 class="text-capitalize fw-bold">{{__('message.Our Testimonials')}}</h3>
     </div>
+  </div>
 
-    <div class="row">
+  <div class="row">
+
+    <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 ">
       @foreach ($testimonios as $t )
-      <div class="col-lg-4 col-xl-3 col-md-6 col-sm-12">
-        <div class="card shadow-sm border-0">
-          <div class="card-content">
-            <table class="table table-borderless m-0">
-              <tbody>
-                <tr>
-                  <td class="text-center p-0">
-                    <img src="{{ asset('image/testimonio/'.$t->image) }}" class="rounded img-fluid" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <p class="font-normal m-0">{{ $t->name }}</p>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <p class="font-normal m-0">"{{ substr($t->testimonio, 0, 120) }}{{ strlen($t->testimonio) > 120? '...' : '' }}"</p>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+      
+      <?php $image_url = asset('image/testimonio/' . $t->image); ?>
+
+      <div class="col">
+        <div class="card card-cover border-0 h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image:linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('{{$image_url}}'); background-position: center center; background-repeat: no-repeat; background-size: cover; height:350px;">
+          <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+            <h6 class="pt-5 mt-5 mb-4 display-s6 lh-1 fw-bold">"{{ substr($t->testimonio, 0, 120) }}{{ strlen($t->testimonio) > 120? '...' : '' }}"</h6>
+            <ul class="d-flex list-unstyled mt-auto">
+              
+              <li class="d-flex align-items-center me-3">
+                <small>{{ $t->name }}</small>
+              </li>
+
+            </ul>
           </div>
         </div>
       </div>
+
       @endforeach
     </div>
+
   </div>
-  @endif
-  @endif
+</div>
+@endif
+@endif
 </div>
 
 <!-- PORQUE ELEGIRNOS -->
 @if($setting->status_section_one == 1)
 <div class="container pt-5">
   <div class="row">
-    <div class="col-12 col-lg-6 py-5 ">
+    <div class="col-12 p-4 border rounded-4">
       <div class="row">
         <div class="col-12 text-center">
           <h3 class="text-capitalize fw-bold">{{ $info->title_info }}</h3>
@@ -261,9 +205,9 @@ $description= $title
         </div>
       </div>
     </div>
-    <div class="col-12 col-lg-6 py-5 d-none d-lg-block">
-      <div class="bg-section-one rounded-2 h-100 w-100"></div>
-    </div>
+  </div>
+  <div class="col-12 col-lg-6 py-5 d-none d-lg-block">
+    <div class="bg-section-one rounded-2 h-100 w-100"></div>
   </div>
 </div>
 @endif

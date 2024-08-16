@@ -29,9 +29,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        $products = Product::where('publicar', 1)->where('destacado', 0)->latest()->get()->take(8);
         $info = InfoWeb::all()->first();
-        $monedas = Monedas::all();
         $pages = Page::where('status', '1')->get();
         //dd($pages);
         $vendedorAgente =  User::whereHas("roles", function ($q) {
@@ -40,12 +38,10 @@ class HomeController extends Controller
             ->take(4)
             ->get();
 
-        $productsDestacados = Product::where('destacado', 1)->where('publicar', 1)->latest()->get()->take(8);
-
         $slides = Slide::latest()->where('active', 1)->take(5)->get();
 
         $typeBusinesses = TypeBusiness::all();
-        $testimonios = Testimonio::latest()->take(4)->get();
+        $testimonios = Testimonio::latest()->take(6)->get();
         $tipoAll = TipoPropiedad::all()->pluck('nombre', 'id');
         $setting = SettingGeneral::first();
 
@@ -65,10 +61,7 @@ class HomeController extends Controller
 
 
         return view('frontend.Home')
-            ->with('products', $products)
-            ->with('productsDestacados', $productsDestacados)
             ->with('slides', $slides)
-            ->with('monedas', $monedas)
             ->with('info', $info)
             ->with('vendedorAgente', $vendedorAgente)
             ->with('typeBusinesses', $typeBusinesses)

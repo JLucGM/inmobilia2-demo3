@@ -11,7 +11,7 @@ $description= $title
 <div class="container-fluid p-0">
   <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner ">
-      
+
       @foreach($slides as $slide)
       <div class="carousel-item {{ $loop->first? 'active' : '' }} ">
         @php
@@ -110,25 +110,33 @@ $description= $title
   </div>
   @endif
   @endif
+</div>
 
+@if($setting->status_section_four == 1)
+<div class="container-fluid  bg-secondary bg-gradient bg-opacity-25 py-5">
+  <div class="row">
 
-  @if($setting->status_section_four == 1)
-  <div class="container rounded-4 bg-secondary bg-gradient bg-opacity-50 py-5">
-    <div class="d-flex justify-content-center py-5">
+    <div class="col-12 col-lg-6">
+      <div class="row justify-content-around">
 
-      <div class="mx-auto">
-        <h3 class="text-capitalize fw-bold text-center">{{ $info->title_anunciar  }}</h3>
-        <p class="text-center">{{ $info->description_anunciar  }}</p>
-        <div class="text-center">
+        <div class="col-5 mt-5" style="height:450px; background-image: url(https://img.freepik.com/foto-gratis/primer-plano-silla-madera_1203-543.jpg?t=st=1723835664~exp=1723839264~hmac=cb7905fe03fd02d793afbfddc03d549679e38e8dea15278fc4758c9c3b815bf3&w=740); background-position: center center; background-repeat: no-repeat; background-size: cover;"></div>
+        <div class="col-5" style="height:450px; background-image: url(https://img.freepik.com/foto-gratis/disparo-vertical-camino-hormigon-plantas-verdes-lados_181624-20818.jpg?t=st=1723835736~exp=1723839336~hmac=eba444cbd56983788acd8b8818612612bdce42018e875e9a941dabdc09c56a3c&w=360); background-position: center center; background-repeat: no-repeat; background-size: cover;"></div>
+      </div>
+    </div>
+    <div class="col-12 col-lg-6 d-flex flex-column justify-content-center py-3 align-self-center">
 
-          <a href="{{ route('propiedad.anunciar') }}" class="btn btn-outline-light ">Publicar propiedad</a>
-        </div>
+      <h3 class="text-capitalize fw-bold text-cednter">{{ $info->title_anunciar  }}</h3>
+      <p class="text-centefr">{{ $info->description_anunciar  }}</p>
+      <div class="text-centerf">
+
+        <a href="{{ route('propiedad.anunciar') }}" class="btn btn-outline-success ">Publicar propiedad</a>
       </div>
 
     </div>
   </div>
-  @endif
 </div>
+@endif
+
 
 @if($setting->status_section_three == 1)
 @if(count($testimonios) > 0)
@@ -143,7 +151,7 @@ $description= $title
 
     <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 ">
       @foreach ($testimonios as $t )
-      
+
       <?php $image_url = asset('image/testimonio/' . $t->image); ?>
 
       <div class="col">
@@ -151,7 +159,7 @@ $description= $title
           <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
             <h6 class="pt-5 mt-5 mb-4 display-s6 lh-1 fw-bold">"{{ substr($t->testimonio, 0, 120) }}{{ strlen($t->testimonio) > 120? '...' : '' }}"</h6>
             <ul class="d-flex list-unstyled mt-auto">
-              
+
               <li class="d-flex align-items-center me-3">
                 <small>{{ $t->name }}</small>
               </li>
@@ -172,48 +180,62 @@ $description= $title
 
 <!-- PORQUE ELEGIRNOS -->
 @if($setting->status_section_one == 1)
-<div class="container pt-5">
+<div class="container-fluid pt-5">
   <div class="row">
-    <div class="col-12 p-4 border rounded-4">
-      <div class="row">
-        <div class="col-12 text-center">
-          <h3 class="text-capitalize fw-bold">{{ $info->title_info }}</h3>
-          <p class="">{{ $info->select_us }}</p>
-        </div>
-        <div class="col-6 py-4">
-          <i class="text-secondar {{ $info->icon_first }} fs-1 p-0 m-0"></i>
-          <h4 class="mt- text-secondar">{{ $info->title_first }}</h4>
-          <p class="m-0 p-0 align-top text-secondary">{{ $info->sell_home }}</p>
-        </div>
+    <div class="col-12 text-center">
+      <h3 class="text-capitalize fw-bold">{{ $info->title_info }}</h3>
+      <p class="">{{ $info->select_us }}</p>
+    </div>
 
-        <div class="col-6 py-4">
-          <i class="text-secondar {{ $info->icon_second }} fs-1 p-0 m-0"></i>
-          <h4 class="mt- text-secondar">{{ $info->title_second  }}</h4>
-          <p class="m-0 p-0 align-top text-secondary">{{ $info->rent_home }}</p>
-        </div>
+    <div class="row">
 
-        <div class="col-6 py-4">
-          <i class="text-secondar {{ $info->icon_thrid }} fs-1 p-0 m-0"></i>
-          <h4 class="mt- text-secondar">{{ $info->title_thrid  }}</h4>
-          <p class="m-0 p-0 align-top text-secondary">{{ $info->buy_home }}</p>
-        </div>
+      <div class="col-12 col-lg-6" style="height:450px; background-image: url(https://img.freepik.com/foto-gratis/edificio-apartamentos-ciudad-espacio-copia_23-2148814165.jpg?t=st=1723837700~exp=1723841300~hmac=0d83741127cbd422495ef3951ba0c1ff05f5d7b6dce59650adcbc9d605b4a5a9&w=826); background-position: center center; background-repeat: no-repeat; background-size: cover;"></div>
+      <div class="col-12 col-lg-6">
 
-        <div class="col-6 py-4">
-          <i class="text-secondar {{ $info->icon_fourth }} fs-1 p-0 m-0"></i>
-          <h4 class="mt- text-secondar">{{ $info->title_fourth  }}</h4>
-          <p class="m-0 p-0 align-top text-secondary">{{ $info->marketing_free }}</p>
+        <div class="row py-4">
+          <div class="col-12 p-3">
+            <i class="text-secondar {{ $info->icon_first }} fs-1 p-0 m-0"></i>
+            <h4 class="mt-4 text-secondar">{{ $info->title_first }}</h4>
+            <p class="m-0 p-0 align-top text-secondary">{{ $info->sell_home }}</p>
+          </div>
+
+          <div class="col-12 p-3">
+            <i class="text-secondar {{ $info->icon_second }} fs-1 p-0 m-0"></i>
+            <h4 class="mt-4 text-secondar">{{ $info->title_second  }}</h4>
+            <p class="m-0 p-0 align-top text-secondary">{{ $info->rent_home }}</p>
+          </div>
+
         </div>
       </div>
     </div>
+
+    <div class="row">
+      <div class="col-12 col-lg-6">
+        <div class="row py-4">
+
+          <div class="col-12 p-3">
+            <i class="text-secondar {{ $info->icon_thrid }} fs-1 p-0 m-0"></i>
+            <h4 class="mt-4 text-secondar">{{ $info->title_thrid  }}</h4>
+            <p class="m-0 p-0 align-top text-secondary">{{ $info->buy_home }}</p>
+          </div>
+
+          <div class="col-12 p-3">
+            <i class="text-secondar {{ $info->icon_fourth }} fs-1 p-0 m-0"></i>
+            <h4 class="mt-4 text-secondar">{{ $info->title_fourth  }}</h4>
+            <p class="m-0 p-0 align-top text-secondary">{{ $info->marketing_free }}</p>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-12 col-lg-6" style="height:450px; background-image: url(https://img.freepik.com/foto-gratis/mantener-llaves-mano-al-aire-libre_23-2151015223.jpg?t=st=1723837656~exp=1723841256~hmac=f119dc9ccb18ac568cb2c52b4ea8747e7bac5edc1e3b40f48814e0f9ff19e0f7&w=900); background-position: center center; background-repeat: no-repeat; background-size: cover;"></div>
+    </div>
   </div>
-  <div class="col-12 col-lg-6 py-5 d-none d-lg-block">
-    <div class="bg-section-one rounded-2 h-100 w-100"></div>
-  </div>
+  
 </div>
 @endif
 
-<div class="w-100 text-center">
-  <p class="mb-0 text-secondary pt-">{{__('message.Entrust your property with our experts.')}}. <a href="{{ route('contactacto.web') }}" class="link-secondary">{{__('message.Contact us')}}</a> {{__('message.today')}}.</p>
+<div class="container-fluid py-5 text-center">
+  <p class="my-5 text-secondary pt-">{{__('message.Entrust your property with our experts.')}}. <a href="{{ route('contactacto.web') }}" class="link-secondary">{{__('message.Contact us')}}</a> {{__('message.today')}}.</p>
 </div>
 
 

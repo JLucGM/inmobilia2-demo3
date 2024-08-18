@@ -133,6 +133,11 @@ class PostController extends Controller
             $fileNameToStore = time() . '.' . $input['img']->getClientOriginalExtension();
             $input["img"] = $fileNameToStore;
             $file->move($path, $fileNameToStore);
+
+            // Eliminar la imagen antigua si existe
+            if ($post->img && file_exists($path . $post->img)) {
+                unlink($path . $post->img);
+            }
         }
 
         $post->update($input);
@@ -152,6 +157,11 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        // Eliminar la imagen del post
+        if ($post->img && file_exists(public_path('img/posts/' . $post->img))) {
+            unlink(public_path('img/posts/' . $post->img));
+        }
+
         $post->delete();
 
         return redirect()->route('posts.index')->with('info', 'el Post se elimino con exito');

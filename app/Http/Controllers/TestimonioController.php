@@ -54,8 +54,7 @@ class TestimonioController extends Controller
         $input = $request->all();
 
 
-          if($request['image'])
-        {
+        if ($request['image']) {
             $file = $request->file('image');
             $filepath = "image/testimonio/";
             $filename = time() . '-' . $file->getClientOriginalName();
@@ -104,27 +103,21 @@ class TestimonioController extends Controller
      */
     public function update(Request $request, Testimonio $testimonio)
     {
-        // request()->validate(Testimonio::$rules);
-
-        // $testimonio->update($request->all());
-
-        // $request->validate([
-        //     'name' => 'required',
-        //     'image' => 'file',
-        //     'testimonio' => 'required',
-        // ]);
-    
         $testimonio->name = $request->input('name');
         $testimonio->testimonio = $request->input('testimonio');
 
         if ($request->hasFile('image')) {
+            // Eliminar la imagen anterior
+            if ($testimonio->image && file_exists(public_path('image/testimonio/' . $testimonio->image))) {
+                unlink(public_path('image/testimonio/' . $testimonio->image));
+            }
+
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('image/testimonio'), $imageName);
             $testimonio->image = $imageName;
         }
 
-    
         $testimonio->save();
 
         return redirect()->route('testimonios.index')
@@ -138,7 +131,16 @@ class TestimonioController extends Controller
      */
     public function destroy($id)
     {
-        $testimonio = Testimonio::find($id)->delete();
+        $testimonio = Testimonio::find($id);
+
+        if ($testimonio) {
+            // Eliminar la imagen del testimonio
+            if ($testimonio->image && file_exists(public_path('image/testimonio/' . $testimonio->image))) {
+                unlink(public_path('image/testimonio/' . $testimonio->image));
+            }
+
+            $testimonio->delete();
+        }
 
         return redirect()->route('testimonios.index')
             ->with('success', 'Testimonio deleted successfully');

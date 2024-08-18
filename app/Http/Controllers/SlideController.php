@@ -55,11 +55,10 @@ class SlideController extends Controller
     {
         request()->validate(Slide::$rules);
 
-        $input =$request->all();
+        $input = $request->all();
 
 
-        if($request['image'])
-        {
+        if ($request['image']) {
             $file = $request->file('image');
             $filepath = "image/sliders";
             $filename = time() . '-' . $file->getClientOriginalName();
@@ -67,13 +66,13 @@ class SlideController extends Controller
             $input['image'] = $filename;
         }
 
-        
+
         $slide = Slide::create($input);
         /*if(isset($request['prueba']))
         {
             $slide->addMediaFromRequest('prueba')->toMediaCollection('prueba');
         }*/
-        
+
         return redirect()->route('slides.index')
             ->with('success', 'Slide created successfully.');
     }
@@ -102,7 +101,7 @@ class SlideController extends Controller
         $slide = Slide::find($id);
         $products = Product::all()->where('publicar', 1);
 
-        return view('slide.edit', compact('slide','products'));
+        return view('slide.edit', compact('slide', 'products'));
     }
 
     /**
@@ -117,6 +116,7 @@ class SlideController extends Controller
         $request->validate([
             'link' => 'nullable|url',
         ]);
+
         // Actualizar los campos
         $slide->active = $request->input('active');
         $slide->texto = $request->input('texto');
@@ -125,6 +125,11 @@ class SlideController extends Controller
 
         // Verificar si se ha enviado una nueva imagen
         if ($request->hasFile('image')) {
+            // Eliminar la imagen anterior
+            if ($slide->image && file_exists(public_path('image/sliders/' . $slide->image))) {
+                unlink(public_path('image/sliders/' . $slide->image));
+            }
+
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('image/sliders'), $imageName);
@@ -145,7 +150,16 @@ class SlideController extends Controller
      */
     public function destroy($id)
     {
-        $slide = Slide::find($id)->delete();
+        $slide = Slide::find($id);
+
+        if ($slide) {
+            // Eliminar la imagen asociada al slide
+            if ($slide->image && file_exists(public_path('image/sliders/' . $slide->image))) {
+                unlink(public_path('image/sliders/' . $slide->image));
+            }
+
+            $slide->delete();
+        }
 
         return redirect()->route('slides.index')
             ->with('success', 'Slide deleted successfully');

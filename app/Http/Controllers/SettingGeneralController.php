@@ -121,58 +121,113 @@ class SettingGeneralController extends Controller
 
         $valor3 = $request->input('status_section_three');
         $input['status_section_three'] = ($valor3 == "1") ? 1 : 0;
-        
+
         $valor4 = $request->input('status_section_four');
         $input['status_section_four'] = ($valor4 == "1") ? 1 : 0;
 
-        if ($request['logo_empresa']) {
+        if ($request->hasFile('logo_empresa')) {
+            // Eliminar la imagen anterior
+            if ($settingGeneral->logo_empresa != 'default.png' && file_exists(public_path('image/' . $settingGeneral->logo_empresa))) {
+                unlink(public_path('image/' . $settingGeneral->logo_empresa));
+            }
+
             $file = $request->file('logo_empresa');
             $filepath = "image/";
             $filename = time() . '-' . $file->getClientOriginalName();
             $uploadSucess = $request->file('logo_empresa')->move($filepath, $filename);
             $input['logo_empresa'] = $filename;
+        } else {
+            $input['logo_empresa'] = $settingGeneral->logo_empresa;
         }
-        if ($request['logo_empresa_footer']) {
+
+        if ($request->hasFile('logo_empresa_footer')) {
+            // Eliminar la imagen anterior
+            if ($settingGeneral->logo_empresa_footer != 'default.png' && file_exists(public_path('image/' . $settingGeneral->logo_empresa_footer))) {
+                unlink(public_path('image/' . $settingGeneral->logo_empresa_footer));
+            }
+
             $file = $request->file('logo_empresa_footer');
             $filepath = "image/";
             $filename = time() . '-' . $file->getClientOriginalName();
             $uploadSucess = $request->file('logo_empresa_footer')->move($filepath, $filename);
             $input['logo_empresa_footer'] = $filename;
+        } else {
+            $input['logo_empresa_footer'] = $settingGeneral->logo_empresa_footer;
         }
-        if ($request['logo_empresa_favicon']) {
+
+        if ($request->hasFile('logo_empresa_favicon')) {
+            // Eliminar la imagen anterior
+            if ($settingGeneral->logo_empresa_favicon != 'favicon.ico' && file_exists(public_path('image/' . $settingGeneral->logo_empresa_favicon))) {
+                unlink(public_path('image/' . $settingGeneral->logo_empresa_favicon));
+            }
+
             $file = $request->file('logo_empresa_favicon');
             $filepath = "image/";
             $filename = time() . '-' . $file->getClientOriginalName();
             $uploadSucess = $request->file('logo_empresa_favicon')->move($filepath, $filename);
             $input['logo_empresa_favicon'] = $filename;
+        } else {
+            $input['logo_empresa_favicon'] = $settingGeneral->logo_empresa_favicon;
         }
-        if ($request['portadaBlog']) {
+
+        if ($request->hasFile('portadaBlog')) {
+            // Eliminar la imagen anterior
+            if ($settingGeneral->portadaBlog != 'banner-propertie2.png' && file_exists(public_path('img/' . $settingGeneral->portadaBlog))) {
+                unlink(public_path('img/' . $settingGeneral->portadaBlog));
+            }
+
             $file = $request->file('portadaBlog');
             $filepath = "img/";
             $filename = time() . '-' . $file->getClientOriginalName();
             $uploadSucess = $request->file('portadaBlog')->move($filepath, $filename);
             $input['portadaBlog'] = $filename;
+        } else {
+            $input['portadaBlog'] = $settingGeneral->portadaBlog;
         }
-        if ($request['portadaFaq']) {
+
+        if ($request->hasFile('portadaFaq')) {
+            // Eliminar la imagen anterior
+            if ($settingGeneral->portadaFaq != 'banner-propertie2.png' && file_exists(public_path('img/' . $settingGeneral->portadaFaq))) {
+                unlink(public_path('img/' . $settingGeneral->portadaFaq));
+            }
+
             $file = $request->file('portadaFaq');
             $filepath = "img/";
             $filename = time() . '-' . $file->getClientOriginalName();
             $uploadSucess = $request->file('portadaFaq')->move($filepath, $filename);
             $input['portadaFaq'] = $filename;
+        } else {
+            $input['portadaFaq'] = $settingGeneral->portadaFaq;
         }
-        if ($request['portadaContact']) {
+
+        if ($request->hasFile('portadaContact')) {
+            // Eliminar la imagen anterior
+            if ($settingGeneral->portadaContact != 'banner-propertie2.png' && file_exists(public_path('img/' . $settingGeneral->portadaContact))) {
+                unlink(public_path('img/' . $settingGeneral->portadaContact));
+            }
+
             $file = $request->file('portadaContact');
             $filepath = "img/";
             $filename = time() . '-' . $file->getClientOriginalName();
             $uploadSucess = $request->file('portadaContact')->move($filepath, $filename);
             $input['portadaContact'] = $filename;
+        } else {
+            $input['portadaContact'] = $settingGeneral->portadaContact;
         }
-        if ($request['portadaAnunciar']) {
+
+        if ($request->hasFile('portadaAnunciar')) {
+            // Eliminar la imagen anterior
+            if ($settingGeneral->portadaAnunciar != 'default.png' && file_exists(public_path('img/' . $settingGeneral->portadaAnunciar))) {
+                unlink(public_path('img/' . $settingGeneral->portadaAnunciar));
+            }
+
             $file = $request->file('portadaAnunciar');
             $filepath = "img/";
             $filename = time() . '-' . $file->getClientOriginalName();
             $uploadSucess = $request->file('portadaAnunciar')->move($filepath, $filename);
             $input['portadaAnunciar'] = $filename;
+        } else {
+            $input['portadaAnunciar'] = $settingGeneral->portadaAnunciar;
         }
 
         $settingGeneral->update($input);

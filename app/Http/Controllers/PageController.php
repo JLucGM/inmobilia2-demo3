@@ -125,6 +125,11 @@ class PageController extends Controller
         $path = 'img/';
 
         if (isset($input['portada'])) {
+            // Eliminar la imagen anterior, excepto la imagen por defecto
+            if ($page->portada && file_exists($path . $page->portada) && $page->portada != 'banner-propertie2.png') {
+                unlink($path . $page->portada);
+            }
+
             $file = $input['portada'];
             $filenameWithExt = $file->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
@@ -135,7 +140,6 @@ class PageController extends Controller
         }
 
         $page->update($input);
-
 
         return redirect()->route('pages.index')
             ->with('success', 'Page updated successfully');
@@ -148,7 +152,16 @@ class PageController extends Controller
      */
     public function destroy($id)
     {
-        $page = Page::find($id)->delete();
+        $page = Page::find($id);
+
+        if ($page) {
+            // Delete the associated image, except the default image
+            if ($page->portada && file_exists(public_path('img/' . $page->portada)) && $page->portada != 'banner-propertie2.png') {
+                unlink(public_path('img/' . $page->portada));
+            }
+
+            $page->delete();
+        }
 
         return redirect()->route('pages.index')
             ->with('success', 'Page deleted successfully');

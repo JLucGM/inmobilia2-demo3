@@ -127,7 +127,6 @@ $description= __('message.Update property')
                 </div>
 
             </div>
-
             <div class="col-12 col-lg-4">
                 <h1 class="my-3 small-title">{{ __('message.Property details') }}</h1>
 
@@ -165,165 +164,167 @@ $description= __('message.Update property')
 
                 </div>
 
-                <div class="col-12">
 
-                    <h2 class="small-title">{{ __('message.Upload cover') }}</h2>
-                    <div class="card">
-                        <div class="card-body">
-                            <form class="" action="{{ route('pjsonimages', ['id' => $product->id]) }}" enctype="multipart/form-data" method="post">
-                                @csrf
-                                @method('PATCH')
+            </div>
+            <div class="col-12 col-lg-6">
+                <h1 class="my-3 small-title">{{ __('message.Amenities') }}</h1>
+                <div class="card">
+                    <div class="card-body">
 
-                                <div class="mb-2">
-                                    <img src="{{ asset('img/product/product_id_' . $product->id . '/' . $product->portada) }}" class="w-100 mb-2" alt="Imagen de la propiedad">
-                                    <input class="form-control" type="file" name="portada" label="image" id="image" multiple>
-                                </div>
-
-                                <button type="submit" class="btn btn-outline-primary my-2" id="">
-                                    {{ __('message.Save') }}
-                                </button>
-                            </form>
+                        <div class="row">
+                            @foreach($amenities as $amenityCheck)
+                            <div class="col-6">
+                                <input type="checkbox" class="form-check-input" name="amenities[]" value="{{ $amenityCheck->id }}" @if($amenitiesChecks->contains('amenities_checks_id', $amenityCheck->id)) checked @endif>
+                                <label>{{ __('message.'.strtolower($amenityCheck->name)) }}</label>
+                            </div>
+                            @endforeach
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <h2 class="small-title">{{ __('message.Property gallery') }}</h2>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="my-2">
-                                <div class="row">
-                                    @foreach($images as $image)
-                                    <div class="col-6">
-                                        <div class="border rounded mb-2">
-                                            <img src="{{ asset('img/product/product_id_' . $product->id . '/' . $image->name) }}" class="rounded w-100 mb-2" alt="Imagen de la propiedad">
-                                            <div class="d-flex align-items-center mx-2">
-
-                                                {{$image->name}}
-                                                <form action="{{ route('pjsondelete', ['id' => $product->id, 'imageId' => $image->id]) }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn"><i class="cs-bin"></i></button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
+            <div class="col-12 col-lg-6">
+                <h1 class="my-3 small-title">{{ __('message.Location') }}</h1>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mt-2">
+                            <div class="form-group col-12 mb-4">
+                                {{ Form::label('pais', __('message.Country'), ['class' => 'form-label']) }}<label class="text-danger" for="">* </label>
+                                <select class="form-control {{ ($errors->has('pais') ? ' is-invalid' : '') }}" name="pais" id="paisSelect">
+                                    @if ($product->pais == null)
+                                    <option value="" selected>{{ __('message.Select a country') }}</option>
+                                    @endif
+                                    @foreach($paises as $pais)
+                                    <option value="{{ $pais->id }}" {{ old('pais') == $pais->id ? 'selected' : '' }} {{ ($product->pais == $pais->id) ? 'selected' : '' }}>{{ $pais->name }}</option>
                                     @endforeach
+                                </select>
+                                {!! $errors->first('pais', '<div class="invalid-feedback">:message</div>') !!}
+                            </div>
+
+                            <div class="form-group col-12 mb-4">
+                                {{ Form::label('region', __('message.State'), ['class' => 'form-label']) }}<label class="text-danger" for="">* </label>
+                                <select class="form-control {{ ($errors->has('region') ? ' is-invalid' : '') }}" id="estadoSelect" name="region">
+                                    @if ($product->region == null)
+                                    <option value="" selected>{{ __('message.Select a state') }}</option>
+                                    @endif
+                                    @foreach($estados as $estad)
+                                    <option value="{{ $estad->id }}" {{ old('region') == $estad->id ? 'selected' : '' }} {{ ($product->region == $estad->id) ? 'selected' : '' }}>{{ $estad->name }}</option>
+                                    @endforeach
+                                </select> {!! $errors->first('region', '<div class="invalid-feedback">:message</div>') !!}
+                            </div>
+
+                            <div class="form-group col-12 mb-4">
+                                {{ Form::label('ciudad', __('message.City'), ['class' => 'form-label']) }}<label class="text-danger" for="">* </label>
+                                <select class="form-control {{ ($errors->has('ciudad') ? ' is-invalid' : '') }}" id="ciudadSelect" name="ciudad">
+                                    @if ($product->ciudad == null)
+                                    <option value="" selected>{{ __('message.Select a city') }}</option>
+                                    @endif
+                                    @foreach($ciudades as $ciudade)
+                                    <option value="{{ $ciudade->id }}" {{ old('ciudad') == $ciudade->id ? 'selected' : '' }} {{ ($product->ciudad == $ciudade->id) ? 'selected' : '' }}>{{ $ciudade->name }}</option>
+                                    @endforeach
+                                </select> {!! $errors->first('ciudad', '<div class="invalid-feedback">:message</div>') !!}
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <div class="col-12 col-md-6">
+                                <label class="form-label">{{ __('message.Latitude') }}</label>
+                                <input class="form-control {{ ($errors->has('latitud') ? ' is-invalid' : '') }}" type="text" id="latitud" name="latitud" value="{{$product->latitud}}" placeholder="{{ __('message.Latitude') }}">
+                                {!! $errors->first('latitud', '<div class="invalid-feedback">:message</div>') !!}
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label class="form-label">{{ __('message.Longitude') }}</label>
+                                <input class="form-control {{ ($errors->has('longitud') ? ' is-invalid' : '') }}" type="text" id="longitud" name="longitud" value="{{$product->longitud}}" placeholder="{{ __('message.Longitude') }}">
+                                {!! $errors->first('longitud', '<div class="invalid-feedback">:message</div>') !!}
+                            </div>
+                            <div class="col-12 my-2">
+                                <label class="form-label">{{ __('message.Address') }}</label>
+                                <div class="input-group">
+                                    <input class="form-control {{ ($errors->has('direccion') ? ' is-invalid' : '') }}" type="text" name="direccion" value="{{$product->direccion}}" placeholder="{{ __('message.Address') }}">
                                 </div>
+                                {!! $errors->first('direccion', '<div class="invalid-feedback">:message</div>') !!}
                             </div>
-                            <form class="" action="{{ route('pjsonimages', ['id' => $product->id]) }}" enctype="multipart/form-data" method="post">
-                                @csrf
-                                @method('PATCH')
-                                <input class="form-control" type="file" name="image[]" label="image" id="image" multiple>
-                                <button type="submit" class="btn btn-outline-primary my-2" id="">
-                                    {{ __('message.Save') }}
-                                </button>
-                            </form>
-
                         </div>
+
                     </div>
                 </div>
             </div>
-
-
-            <h1 class="my-3 small-title">{{ __('message.Amenities') }}</h1>
-            <div class="card">
-                <div class="card-body">
-
-                    <div class="row">
-                        @foreach($amenities as $amenityCheck)
-                        <div class="col-6">
-                            <input type="checkbox" class="form-check-input" name="amenities[]" value="{{ $amenityCheck->id }}" @if($amenitiesChecks->contains('amenities_checks_id', $amenityCheck->id)) checked @endif>
-                            <label>{{ __('message.'.strtolower($amenityCheck->name)) }}</label>
-                        </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-
-            <h1 class="my-3 small-title">{{ __('message.Location') }}</h1>
-
-            <div class="card">
-                <div class="card-body">
-                    <div class="row mt-2">
-                        <div class="form-group col-12 mb-4">
-                            {{ Form::label('pais', __('message.Country'), ['class' => 'form-label']) }}<label class="text-danger" for="">* </label>
-                            <select class="form-control {{ ($errors->has('pais') ? ' is-invalid' : '') }}" name="pais" id="paisSelect">
-                                @if ($product->pais == null)
-                                <option value="" selected>{{ __('message.Select a country') }}</option>
-                                @endif
-                                @foreach($paises as $pais)
-                                <option value="{{ $pais->id }}" {{ old('pais') == $pais->id ? 'selected' : '' }} {{ ($product->pais == $pais->id) ? 'selected' : '' }}>{{ $pais->name }}</option>
-                                @endforeach
-                            </select>
-                            {!! $errors->first('pais', '<div class="invalid-feedback">:message</div>') !!}
-                        </div>
-
-                        <div class="form-group col-12 mb-4">
-                            {{ Form::label('region', __('message.State'), ['class' => 'form-label']) }}<label class="text-danger" for="">* </label>
-                            <select class="form-control {{ ($errors->has('region') ? ' is-invalid' : '') }}" id="estadoSelect" name="region">
-                                @if ($product->region == null)
-                                <option value="" selected>{{ __('message.Select a state') }}</option>
-                                @endif
-                                @foreach($estados as $estad)
-                                <option value="{{ $estad->id }}" {{ old('region') == $estad->id ? 'selected' : '' }} {{ ($product->region == $estad->id) ? 'selected' : '' }}>{{ $estad->name }}</option>
-                                @endforeach
-                            </select> {!! $errors->first('region', '<div class="invalid-feedback">:message</div>') !!}
-                        </div>
-
-                        <div class="form-group col-12 mb-4">
-                            {{ Form::label('ciudad', __('message.City'), ['class' => 'form-label']) }}<label class="text-danger" for="">* </label>
-                            <select class="form-control {{ ($errors->has('ciudad') ? ' is-invalid' : '') }}" id="ciudadSelect" name="ciudad">
-                                @if ($product->ciudad == null)
-                                <option value="" selected>{{ __('message.Select a city') }}</option>
-                                @endif
-                                @foreach($ciudades as $ciudade)
-                                <option value="{{ $ciudade->id }}" {{ old('ciudad') == $ciudade->id ? 'selected' : '' }} {{ ($product->ciudad == $ciudade->id) ? 'selected' : '' }}>{{ $ciudade->name }}</option>
-                                @endforeach
-                            </select> {!! $errors->first('ciudad', '<div class="invalid-feedback">:message</div>') !!}
-                        </div>
-                    </div>
-
-                    <div class="row mt-2">
-                        <div class="col-12 col-md-6">
-                            <label class="form-label">{{ __('message.Latitude') }}</label>
-                            <input class="form-control {{ ($errors->has('latitud') ? ' is-invalid' : '') }}" type="text" id="latitud" name="latitud" value="{{$product->latitud}}" placeholder="{{ __('message.Latitude') }}">
-                            {!! $errors->first('latitud', '<div class="invalid-feedback">:message</div>') !!}
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <label class="form-label">{{ __('message.Longitude') }}</label>
-                            <input class="form-control {{ ($errors->has('longitud') ? ' is-invalid' : '') }}" type="text" id="longitud" name="longitud" value="{{$product->longitud}}" placeholder="{{ __('message.Longitude') }}">
-                            {!! $errors->first('longitud', '<div class="invalid-feedback">:message</div>') !!}
-                        </div>
-                        <div class="col-12 my-2">
-                            <label class="form-label">{{ __('message.Address') }}</label>
-                            <div class="input-group">
-                                <input class="form-control {{ ($errors->has('direccion') ? ' is-invalid' : '') }}" type="text" name="direccion" value="{{$product->direccion}}" placeholder="{{ __('message.Address') }}">
-                            </div>
-                            {!! $errors->first('direccion', '<div class="invalid-feedback">:message</div>') !!}
-                        </div>
-                    </div>
-
-
-
-
-
-                </div>
-            </div>
-
             <div class="card-footer">
                 <button class="btn btn-outline-primary" type="submit" class="form-submit">
                     {{__('message.Save')}}
                 </button>
             </div>
     </form>
-
-
-
-
-
-
-    <!-- Gallery End -->
 </div>
+
+
+
+
+<div class="row mt-5">
+
+    <div class="col-12 col-lg-6">
+        <h2 class="small-title">{{ __('message.Upload cover') }}</h2>
+        <div class="card">
+            <div class="card-body">
+                <form class="" action="{{ route('pjsonimages', ['id' => $product->id]) }}" enctype="multipart/form-data" method="post">
+                    @csrf
+                    @method('PATCH')
+
+                    <div class="mb-2">
+                        <img src="{{ asset('img/product/product_id_' . $product->id . '/' . $product->portada) }}" class="w-100 mb-2" alt="Imagen de la propiedad">
+                        <input class="form-control" type="file" name="portada" label="image" id="image" multiple>
+                    </div>
+
+                    <button type="submit" class="btn btn-outline-primary my-2" id="">
+                        {{ __('message.Save') }}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-lg-6">
+        <h2 class="small-title">{{ __('message.Property gallery') }}</h2>
+        <div class="card">
+            <div class="card-body">
+                <div class="my-2">
+                    <div class="row">
+                        @foreach($images as $image)
+                        <div class="col-6">
+                            <div class="border rounded mb-2">
+                                <img src="{{ asset('img/product/product_id_' . $product->id . '/' . $image->name) }}" class="rounded w-100 mb-2" alt="Imagen de la propiedad">
+                                <div class="d-flex align-items-center mx-2">
+
+                                    {{$image->name}}
+                                    <form action="{{ route('pjsondelete', ['id' => $product->id, 'imageId' => $image->id]) }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn"><i class="cs-bin"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                <form class="" action="{{ route('pjsonimages', ['id' => $product->id]) }}" enctype="multipart/form-data" method="post">
+                    @csrf
+                    @method('PATCH')
+                    <input class="form-control" type="file" name="image[]" label="image" id="image" multiple>
+                    <button type="submit" class="btn btn-outline-primary my-2" id="">
+                        {{ __('message.Save') }}
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </div>
 </div>
+
+
+<!-- Gallery End -->
+</div>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>

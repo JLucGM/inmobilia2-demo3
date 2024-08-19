@@ -93,7 +93,7 @@ Route::group(['middleware' => ['cors']], function () {
     Route::get('/userDelete{id}', [userController::class, 'destroy'])->name('user.delete');
     Route::get('user/new-user', [userController::class, 'create'])->name('new.user');
     Route::post('/storeUsuario', [userController::class, 'store'])->name('store.user');
-    Route::get('/profile',[UserController::class, 'profile'])->name('profile');
+    Route::get('/profile', [userController::class, 'profile'])->name('profile');
 
 
     //usuario del formulario de anunciar
@@ -109,19 +109,19 @@ Route::group(['middleware' => ['cors']], function () {
     Route::get('productoDelete/{id}', [ProductController::class, 'Delete'])->name('propiedad.delete');
 
     Route::post('/storeProducto', [ProductController::class, 'store'])->name('store.product');
-    Route::patch('/productUpdate{id}', [ProductController::class, 'productUpdate'])->name('product.update');
+    Route::patch('/productUpdate/{id}', [ProductController::class, 'productUpdate'])->name('product.update');
     // Rutas auxiliares
     Route::patch('/productJsonEdit{id}', [ProductController::class, 'productJsonImages'])->name('pjsonimages');
     Route::get('/create-product', [ProductController::class, 'create'])->name('new.product');
     Route::get('/edit-product/{id}', [ProductController::class, 'productEdit'])->name('product.edit');
-    
+
     Route::delete('/products/{id}/images/{imageId}', [ProductController::class, 'deleteImage'])->name('pjsondelete');
 
-    
-    
-    
+
+
+
     // RUTAS DE FRONTDEND
-    Route::get('/propiedad-anunciar', [ProductController::class, 'propiedadAnunciar'])->name('propiedad.anunciar');// Ruta sin usar
+    Route::get('/propiedad-anunciar', [ProductController::class, 'propiedadAnunciar'])->name('propiedad.anunciar'); // Ruta sin usar
     Route::get('propiedadesAll', [ProductController::class, 'propiedadMapsAll'])->name('propiedadesMaps');
     Route::get('/type/{tipo}', [ProductController::class, 'propiedadLista'])->name('propiedad.lista');
     Route::get('properties', [ProductController::class, 'buscarPropiedad'])->name('buscarPropiedad');
@@ -185,7 +185,7 @@ Route::group(['middleware' => ['cors']], function () {
     Route::get('ciudad/{id}', [CiudadesController::class, 'ciudadDelete'])->name('city.delete');
 
     //Fidelizacion
-   //Route::get('/Fidelizacion', [CustomerLoyaltiesController::class, 'index'])->name('fidel.index');
+    //Route::get('/Fidelizacion', [CustomerLoyaltiesController::class, 'index'])->name('fidel.index');
     //Route::get('/editFidelizacion{id}', [CustomerLoyaltiesController::class, 'edit'])->name('fidel.edit');
     //Route::get('/createFidelizacion', [CustomerLoyaltiesController::class, 'create'])->name('fidel.create');
     //Route::post('/newFidelizacion', [CustomerLoyaltiesController::class, 'store'])->name('fidel.store');
@@ -306,7 +306,7 @@ Route::resource('status-contacts', StatusContactController::class);
 Route::get('/page/{slug}', [PageController::class, 'page'])->name('page');
 Route::get('/contactsproperty/pdf/{id}/{vendedor_id}', [PdfController::class, 'contactopropiedad'])->name('pdpreport.show');
 
-Route::get('locale/{locale}',function($locale){
-    session()->put('locale',$locale);
+Route::get('locale/{locale}', function ($locale) {
+    session()->put('locale', $locale);
     return Redirect::back();
 });

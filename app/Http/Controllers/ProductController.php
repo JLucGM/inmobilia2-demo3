@@ -206,6 +206,7 @@ class ProductController extends Controller
      */
     public function productUpdate(request $request, $id)
     {
+        // dd($request->all());
         $product = Product::find($id);
 
         $product->name = $request->name;
@@ -233,17 +234,17 @@ class ProductController extends Controller
         $product->type_business_id = $request->type_business_id;
         $product->phy_state_id = $request->phy_state_id;
 
-        if ($request->hasFile('image')) {
-            $images = []; // Crear un arreglo vacío para almacenar los nombres de las imágenes
+        // if ($request->hasFile('image')) {
+        //     $images = []; // Crear un arreglo vacío para almacenar los nombres de las imágenes
 
-            foreach ($request->file('image') as $file) {
-                $imageName = $file->getClientOriginalName();
-                $file->move(public_path('images'), $imageName);
-                $images[] = $imageName; // Agregar el nombre de la imagen al arreglo
-            }
+        //     foreach ($request->file('image') as $file) {
+        //         $imageName = $file->getClientOriginalName();
+        //         $file->move(public_path('images'), $imageName);
+        //         $images[] = $imageName; // Agregar el nombre de la imagen al arreglo
+        //     }
 
-            $product->image = $images;
-        }
+        //     $product->image = $images;
+        // }
 
         $amenitiesSelected = $request->amenities;
 
@@ -255,10 +256,8 @@ class ProductController extends Controller
             $propiedadAmenity->save();
         }
 
-
-        $propiedadAgente = PropiedadAgente::findOrFail($id);
+        $propiedadAgente = PropiedadAgente::where('product_id', $product->id)->firstOrFail();
         $propiedadAgente->user_id = $request->agenteVendedor_id;
-        $propiedadAgente->product_id = $product->id;
         $propiedadAgente->save();
 
         $product->save();
@@ -270,6 +269,7 @@ class ProductController extends Controller
         Notification::send($users, new ProductUpdateNotification($product));
 
         return redirect()->route('product.index')->with('success', 'La propiedad se ha actualizado correctamente');
+        //return redirect()->back();
     }
 
     /**
@@ -318,6 +318,11 @@ class ProductController extends Controller
         $images = json_decode($product->image, false);
 
         if ($request->hasFile('portada')) {
+            // Eliminar la imagen de portada anterior
+            if ($product->portada && file_exists(public_path("img/product/product_id_" . $id . "/" . $product->portada))) {
+                unlink(public_path("img/product/product_id_" . $id . "/" . $product->portada));
+            }
+
             $image = $request->file('portada');
             $nombreImagen = $image->getClientOriginalName();
             $image->move(public_path("img/product/product_id_" . $id . "/"), $nombreImagen);
@@ -325,6 +330,7 @@ class ProductController extends Controller
             $product->portada = $nombreImagen;
             $product->save();
         }
+
         if ($request->hasFile('image')) {
             $array = [];
             $file = $request->file('image');
@@ -365,6 +371,11 @@ class ProductController extends Controller
         $position = array_search($imageId, array_column($images, 'id'));
 
         if ($position !== false) {
+            $imagePath = public_path("img/product/product_id_" . $id . "/" . $images[$position]['name']);
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+
             unset($images[$position]);
             $images = array_values($images);
             $product->image = json_encode($images);

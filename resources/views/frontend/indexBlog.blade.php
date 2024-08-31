@@ -29,7 +29,7 @@ $description= $title
           <div class="card border-0 rounded-0 shadow-sms">
             <div class="row g-0">
               <a class="btn rounded-0 p-0 m-0 border-0" href="{{ route('blog.show',$post) }}">
-                <img src="{{ asset('img/posts/'.$post->img) }}" style="width: 100%; " class="card-img-top rounded-0" alt="{{$post->name}}">
+                <img src="{{ asset('img/posts/'.$post->img) }}" style="width: 100%; height: 250px!important;" class="card-img-top rounded-0" alt="{{$post->name}}">
               </a>
               <div class="card-body p-0">
                 <a class="btn p-0" href="{{ route('blog.show',$post) }}">

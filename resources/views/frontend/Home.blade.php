@@ -29,7 +29,7 @@ $description= $title
         @endif
 
         <div class="carousel-caption ">
-          <div class="p-4 rounded" style="background: rgb(0,0,0); background: linear-gradient(0deg, rgba(0,0,0,0.3841911764705882) 37%, rgba(0,0,0,0.19091386554621848) 100%);">
+          <div class="p-4 rounded" style="backdrop-filter: blur(10px); background: rgb(0,0,0); background: linear-gradient(0deg, rgba(0,0,0,0.3841911764705882) 37%, rgba(0,0,0,0.19091386554621848) 100%);">
             <h5>{{ $slide->title }}</h5>
             <p>{{ $slide->texto }}</p>
             @if(!empty($slide->link))

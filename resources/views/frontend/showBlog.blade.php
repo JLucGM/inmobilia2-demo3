@@ -36,7 +36,7 @@ $description= $title
           <a href="{{ route('blog.show',$post) }}" class="card-title fw-bold link-secondary text-decoration-none">
             <div class="row">
               <div class="col-md-4 align-self-center">
-                <img src="{{ asset('img/posts/' . $post->img) }}" class="img-fluisd" alt="{{ $post->name }}" style="height: 100px!important;">
+                <img src="{{ asset('img/posts/' . $post->img) }}" class="img-fluid" alt="{{ $post->name }}" style="height: 100px!important;">
               </div>
               <div class="col-md-8 p-0">
                 <div class="card-body">
@@ -56,7 +56,7 @@ $description= $title
         <div class="card border-0 mb-3">
           <div class="row g-0">
             <div class="col-md-4 align-self-center" >
-              <img style="height: 100px!important;" src="{{ asset('img/product/product_id_' . $product->id . '/' . $product->portada) }}" class=" rounded-start" alt="{{$product->portada}}">
+              <img style="height: 100px!important;" src="{{ asset('img/product/product_id_' . $product->id . '/' . $product->portada) }}" class="img-fluid rounded-start" alt="{{$product->portada}}">
             </div>
             <div class="col-md-8">
               <div class="card-body">

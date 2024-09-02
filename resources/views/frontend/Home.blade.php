@@ -235,7 +235,7 @@ $description= $title
 @endif
 
 <div class="container-fluid py-5 text-center">
-  <p class="my-5 text-secondary pt-">{{__('message.Entrust your property with our experts.')}}. <a href="{{ route('contactacto.web') }}" class="link-secondary">{{__('message.Contact us')}}</a> {{__('message.today')}}.</p>
+  <p class="my-5 text-secondary pt-">{{__('message.Entrust your property with our experts.')}} <a href="{{ route('contactacto.web') }}" class="link-secondary">{{__('message.Contact us')}}</a> {{__('message.today')}}.</p>
 </div>
 
 

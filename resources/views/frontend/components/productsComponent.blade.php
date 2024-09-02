@@ -6,46 +6,25 @@
   <div class="card-body py-2">
     <div class="" style="height: 6vh;">
 
-      <h6 class="card-title text-secondary fw-bold">{{ substr($product->name, 0, 45) }}{{ strlen($product->name) > 45? '...' : '' }}</h6>
+      <h6 class="card-title text-secondary fw-bold text-capitalize">{{ substr($product->name, 0, 45) }}{{ strlen($product->name) > 45? '...' : '' }}</h6>
     </div>
-    <p class="card-text text-secondary mb-0 fs-7" style="height: 45px;">
+    <p class="card-text text-secondary mb-0 fs-7 text-capitalize" style="height: 45px;">
       {{ substr($product->direccion, 0, 80) }}{{ strlen($product->direccion) > 80? '...' : '' }}
     </p>
     <table class="table table-borderless p-0 m-0">
       <tbody>
         <tr>
           <td class="p-0">
-            <p class="card-text text-secondary fw-semibold mb-0 fs-7">{{ __('message.' . strtolower($product->tipopropiedad->nombre)) }}</p>
+            <p class="card-text text-secondary fw-semibold mb-0 fs-7 text-capitalize">{{ __('message.' . strtolower($product->tipopropiedad->nombre)) }}</p>
           </td>
           <td class="p-0">
-            <p class="card-text float-end text-secondary fw-semibold mb-0 fs-7">{{ __('message.' . strtolower($product->typeBusiness->name)) }}</p>
+            <p class="card-text float-end text-secondary fw-semibold mb-0 fs-7 text-capitalize">{{ __('message.' . strtolower($product->typeBusiness->name)) }}</p>
           </td>
         </tr>
       </tbody>
     </table>
-
-    {{--<table class="table table-borderless mb-0">
-      <tbody>
-        <tr>
-          <td>
-            <p class="link-secondary mb-0 fs-7">{{ $product->dormitorios }} {{ __('message.Bedrooms')}}</p>
-    </td>
-    <td>
-      <p class="link-secondary mb-0 fs-7">{{ $product->toilet }} {{ __('message.Bathrooms')}}</p>
-    </td>
-    </tr>
-    <tr>
-      <td>
-        <p class="link-secondary mb-0 fs-7">{{ $product->metrosCuadradosT }} {{ __('message.mts')}}<sup>2</sup> totales</p>
-      </td>
-      <td>
-        <p class="link-secondary mb-0 fs-7">{{ $product->cocheras }} {{ __('message.Parking')}}</p>
-      </td>
-    </tr>
-    </tbody>
-    </table>--}}
   </div>
-  <div class="card-footer borde rounded-  px-3 py-1">
+  <div class="card-footer borde bg-transparent px-3 py-1">
     @if ($product->publicarPrecio == 1)
     <p class="mb-0 text-secondary">{{ $setting->monedaSetting->denominacion.' '.number_format($product->price,2,".",".")}} </p>
     @else

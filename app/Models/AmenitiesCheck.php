@@ -22,7 +22,7 @@ class AmenitiesCheck extends Model
 {
     
     static $rules = [
-		'name' => 'required',
+        'name' => 'required|string|max:255',
 		'amenities_id' => 'required',
     ];
 

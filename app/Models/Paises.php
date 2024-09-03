@@ -12,7 +12,7 @@ class Paises extends Model
     protected $table = 'paises';
 
     static $rules = [
-		'name' => 'required',
+      'name' => 'required|string|max:255',
     ];
 
     protected $fillable = [

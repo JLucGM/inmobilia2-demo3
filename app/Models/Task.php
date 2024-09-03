@@ -29,7 +29,7 @@ class Task extends Model
 {
     
     static $rules = [
-		'name' => 'required',
+		'name' => 'required|string|max:255',
 		'tipoTarea' => 'required',
 		'horaInicio' => 'required',
 		'horaFin' => 'required',

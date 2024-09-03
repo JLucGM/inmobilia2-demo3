@@ -39,16 +39,15 @@ class Contacto extends Model
 {
 
   static $rules = [
-    'name' => 'required',
-    'apellido' => 'required',
-    'email' => 'required',
-    'telefonoContacto1' => 'required',
-    'direccion' => 'required',
-    'observaciones' => 'required',
-    'pais' => 'required',
-    'region' => 'required',
-    'ciudad' => 'required',
-  ];
+    'name' => 'required|string|max:255',
+    'email' => 'required|email',
+    'telefonoContacto1' => 'required|numeric',
+    'direccion' => 'required|string',
+    'observaciones' => 'required|string',
+    'pais' => 'required|string',
+    'region' => 'required|string',
+    'ciudad' => 'required|string',
+];
 
   protected $perPage = 20;
 

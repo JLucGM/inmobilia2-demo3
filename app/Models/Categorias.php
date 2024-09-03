@@ -10,6 +10,6 @@ class Categorias extends Model
     use HasFactory;
 
     static $rules = [
-		'name' => 'required',
+      'name' => 'required|string|max:255',
     ];
 }

@@ -12,7 +12,7 @@ class Ciudades extends Model
     public $table = 'ciudades';
     
     static $rules = [
-		'name' => 'required',
+        'name' => 'required|string|max:255',
     ];
 
     public $fillable = [

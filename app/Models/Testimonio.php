@@ -21,9 +21,9 @@ class Testimonio extends Model
 {
     
     static $rules = [
-		'name' => 'required',
+		'name' => 'required|string|max:255',
 		'image' => 'required',
-		'testimonio' => 'required',
+		'testimonio' => 'required|string|max:255',
     ];
 
     protected $perPage = 20;

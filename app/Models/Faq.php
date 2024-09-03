@@ -21,8 +21,8 @@ class Faq extends Model
 {
     public $table = 'faqs';
     static $rules = [
-        'question' => 'required',
-		'answer' => 'required',
+        'question' => 'required|string',
+        'answer' => 'required|string',
     ];
 
     protected $perPage = 20;

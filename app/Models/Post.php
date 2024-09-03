@@ -11,32 +11,35 @@ class Post extends Model
     use HasFactory;
 
     static $rules = [
-        'name'=> 'required',
-        'status'=>'required|in:1,2',
-        'extract'=>'required|max:150',
-        'img' => 'required|image|max:1024',
-        ];
+        'name' => 'required|string|max:255',
+        'status' => 'required|in:1,2',
+        'extract' => 'required|max:150',
+        'img' => 'required|image',
+    ];
 
-    protected $guarded = ['id','created_at','updated_at'];
+    protected $guarded = ['id', 'created_at', 'updated_at'];
     protected $dateformat = 'd-m-y';
 
-    public function getRouteKeyName(){
+    public function getRouteKeyName()
+    {
         return 'slug';
     }
 
-    public function user(){
+    public function user()
+    {
 
         return $this->belongsTo(User::class);
     }
-    public function comments(){
+    public function comments()
+    {
 
         return $this->hasMany(Comment::class)->whereNull('parent_id');
-
     }
 
 
 
-    public function category(){
+    public function category()
+    {
 
         return $this->belongsTo(Categorias::class);
     }
@@ -44,8 +47,8 @@ class Post extends Model
     //Relacion de mucho a Muchos
 
 
-    public function tags(){
+    public function tags()
+    {
         return $this->belongsToMany(Tag::class);
     }
-
 }

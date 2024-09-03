@@ -20,7 +20,7 @@ class TypeBusiness extends Model
 {
     
     static $rules = [
-		'name' => 'required',
+		'name' => 'required|string|max:255',
     ];
 
     protected $perPage = 20;

@@ -23,8 +23,8 @@ class Estado extends Model
   public $table = 'estados';
   
     static $rules = [
-		'name' => 'required',
-		'pais_id' => 'required',
+      'name' => 'required|string|max:255',
+      'pais_id' => 'required',
     ];
 
     protected $perPage = 20;

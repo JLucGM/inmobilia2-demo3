@@ -19,9 +19,9 @@ use Illuminate\Database\Eloquent\Model;
 class Origin extends Model
 {
     
-    static $rules = [
-		'name' => 'required',
-    ];
+  static $rules = [
+    'name' => 'required|string|max:255',
+];
 
     protected $perPage = 20;
 

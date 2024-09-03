@@ -9,6 +9,10 @@ class Municipios extends Model
 {
     use HasFactory;
 
+    static $rules = [
+        'name' => 'required|string|max:255',
+    ];
+    
     protected $fillable = [
         'name', 
         'pais_id'

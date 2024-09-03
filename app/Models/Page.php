@@ -20,21 +20,18 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Page extends Model
 {
-    
-    static $rules = [
-		'name' => 'required',
-		'status' => 'required',
-    ];
 
-    protected $perPage = 20;
+  static $rules = [
+    'name' => 'required|string|max:255',
+    'status' => 'required',
+  ];
 
-    /**
-     * Attributes that should be mass-assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['name','slug','body','status','portada'];
+  protected $perPage = 20;
 
-
-
+  /**
+   * Attributes that should be mass-assignable.
+   *
+   * @var array
+   */
+  protected $fillable = ['name', 'slug', 'body', 'status', 'portada'];
 }

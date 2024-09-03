@@ -14,20 +14,20 @@ class Product extends Model implements HasMedia
 
 
     static $rules = [
-        'name' => 'required',
+        'name' => 'required|string|max:255',
         'agenteVendedor_id' => 'required',
-        'price' => 'required',
-        'description' => 'required',
+        'price' => 'required|numeric',
+        'description' => 'required|string',
         //'details' => 'required',
-        'dormitorios' => 'required',
+        'dormitorios' => 'required|numeric',
         //'ambientes' => 'required',
-        'toilet' => 'required',
-        'cocheras' => 'required',
-        'metrosCuadradosC' => 'required',
-        'metrosCuadradosT' => 'required',
+        'toilet' => 'required|numeric',
+        'cocheras' => 'required|numeric',
+        'metrosCuadradosC' => 'required|numeric',
+        'metrosCuadradosT' => 'required|numeric',
         //'expensas' => 'required',
-        'portada' => 'required',
-        'image' => 'required',
+        'portada' => 'required|string',
+        'image' => 'required|string',
         'pais' => 'required',
         'region' => 'required',
         'ciudad' => 'required',
@@ -36,6 +36,7 @@ class Product extends Model implements HasMedia
         'direccion' => 'required',
 
     ];
+
     public $table = 'products';
 
     public $fillable = [

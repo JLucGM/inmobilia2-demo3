@@ -25,8 +25,8 @@ class Slide extends Model implements HasMedia
   static $rules = [
     'image' => 'required|mimetypes:image/jpeg,image/png,image/jpg,video/mp4,video/avi,video/mov,video/wmv',
     //'image' => 'required|mimes:jpeg,png,jpg',
-    'title' => 'required',
-    'texto' => 'required',
+    'title' => 'required|string|max:255',
+    'texto' => 'required|string|max:255',
     'link' => 'nullable|url',
 
 

@@ -17,25 +17,21 @@ use Illuminate\Database\Eloquent\Model;
  * @property $updated_at
  *
  * @package App
- * @mixin \Illuminate\Database\Eloquent\Builder
+ * @mixin \Illuminate\Database\Eloquent\Builders
  */
 class InfoWeb extends Model
 {
 
   public $table = 'info_web';
     
-    static $rules = [
-		'title_info' => 'required',
-		'select_us' => 'required',
-		//'icon_first' => 'required',
-		//'icon_second' => 'required',
-		//'icon_thrid' => 'required',
-		//'icon_fourth' => 'required',
-		'sell_home' => 'required',
-		'rent_home' => 'required',
-		'buy_home' => 'required',
-		'marketing_free' => 'required',
-    ];
+  static $rules = [
+    'title_info' => 'required|string',
+    'select_us' => 'required|string',
+    'sell_home' => 'required|string',
+    'rent_home' => 'required|string',
+    'buy_home' => 'required|string',
+    'marketing_free' => 'required|string',
+];
 
     protected $perPage = 20;
 
